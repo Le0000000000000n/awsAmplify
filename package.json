@@ -1,0 +1,20 @@
+{
+  "name": "awsamplify",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Le0000000000000n/awsAmplify#readme",
+  "bugs": {
+    "url": "https://github.com/Le0000000000000n/awsAmplify/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Le0000000000000n/awsAmplify.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

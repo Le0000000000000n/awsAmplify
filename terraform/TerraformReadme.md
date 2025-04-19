@@ -1,1 +1,0 @@
-Yeah so make sure that the zip file name is TangoMano.zip and it's in this folder to work

@@ -87,12 +87,11 @@ export default function SignIn(props) {
     const password = document.getElementById('password').value;
   
     try {
-        const response = await fetch('https://e5lpxos917.execute-api.us-east-1.amazonaws.com/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password }),
-          });
-
+      const response = await fetch('https://e5lpxos917.execute-api.us-east-1.amazonaws.com/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
   
       const data = await response.json();
       console.log('login response: ', data);

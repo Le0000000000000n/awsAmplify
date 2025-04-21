@@ -119,7 +119,7 @@ export default function SignUp(props) {
     const password = document.getElementById('password').value;
     
     try {
-      const response = await fetch('/proxy/auth/signup', {
+      const response = await fetch('https://e5lpxos917.execute-api.us-east-1.amazonaws.com/auth/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password }),

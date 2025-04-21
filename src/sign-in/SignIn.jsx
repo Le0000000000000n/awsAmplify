@@ -92,6 +92,7 @@ export default function SignIn(props) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
+
   
       const data = await response.json();
       console.log('login response: ', data);

@@ -121,7 +121,10 @@ export default function SignUp(props) {
     try {
       const response = await fetch('https://e5lpxos917.execute-api.us-east-1.amazonaws.com/auth/signup', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                  },
         body: JSON.stringify({ name, email, password }),
       });
       

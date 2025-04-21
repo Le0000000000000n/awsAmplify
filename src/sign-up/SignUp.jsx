@@ -114,19 +114,19 @@ export default function SignUp(props) {
     const isValid = validateInputs();
     if (!isValid) return;
   
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const nameVar = document.getElementById('name').value;
+    const emailVar = document.getElementById('email').value;
+    const passwordVar = document.getElementById('password').value;
     
     try {
       const response = await fetch('https://e5lpxos917.execute-api.us-east-1.amazonaws.com/auth/signup', {
         method: 'POST',
         mode: "cors",
         headers: { 
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
-                  },
-        body: JSON.stringify({ name, email, password }),
+          'Content-Type': 'text/plain; charset=utf-8',
+          // 'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({ name: nameVar, email: emailVar, password: passwordVar }),
       });
   
       const data = await response.json();

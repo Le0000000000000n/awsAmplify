@@ -14,7 +14,7 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppTheme from '../shared-theme/AppTheme';
 import ColorModeSelect from '../shared-theme/ColorModeSelect';
-import { MangoTangoIcon } from './components/CustomIcons';
+import { MangoTangoIcon } from '../CustomIcons';
 import ForgotPassword from './components/ForgotPassword';
 
 const Card = styled(MuiCard)(({ theme }) => ({

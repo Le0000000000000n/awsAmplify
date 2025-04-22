@@ -1,24 +1,19 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import MuiCard from '@mui/material/Card';
-import Checkbox from '@mui/material/Checkbox';
 import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
 import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
-import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
 import * as React from 'react';
 import AppTheme from '../shared-theme/AppTheme';
 import ColorModeSelect from '../shared-theme/ColorModeSelect';
-import { FacebookIcon, GoogleIcon, SitemarkIcon } from './components/CustomIcons';
+import { SitemarkIcon, MangoTangoIcon } from './components/CustomIcons';
 import { useNavigate } from 'react-router-dom';
-
-
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -70,7 +65,7 @@ export default function SignUp(props) {
   const [nameError, setNameError] = React.useState(false);
   const [nameErrorMessage, setNameErrorMessage] = React.useState('');
   const navigate = useNavigate();
-  
+
   const validateInputs = () => {
     const email = document.getElementById('email');
     const password = document.getElementById('password');
@@ -110,32 +105,31 @@ export default function SignUp(props) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     const isValid = validateInputs();
     if (!isValid) return;
-  
+
     const nameVar = document.getElementById('name').value;
     const emailVar = document.getElementById('email').value;
     const passwordVar = document.getElementById('password').value;
-    
+
     try {
       const response = await fetch('https://e5lpxos917.execute-api.us-east-1.amazonaws.com/auth/signup', {
         method: 'POST',
-        mode: "cors",
-        headers: { 
+        mode: 'cors',
+        headers: {
           'Content-Type': 'text/plain; charset=utf-8',
-          // 'Access-Control-Allow-Origin': '*'
         },
         body: JSON.stringify({ name: nameVar, email: emailVar, password: passwordVar }),
       });
-  
+
       const data = await response.json();
-      
+
       if (!response.ok) {
         alert(data.error || 'Sign up failed');
         return;
       }
-  
+
       localStorage.setItem('userId', data.userId);
       alert('Sign up successful!');
       navigate('/SignIn');
@@ -144,7 +138,6 @@ export default function SignUp(props) {
       alert('Network error occurred');
     }
   };
-  
 
   return (
     <AppTheme {...props}>
@@ -152,7 +145,7 @@ export default function SignUp(props) {
       <ColorModeSelect sx={{ position: 'fixed', top: '1rem', right: '1rem' }} />
       <SignUpContainer direction="column" justifyContent="space-between">
         <Card variant="outlined">
-          <SitemarkIcon />
+          <MangoTangoIcon />
           <Typography
             component="h1"
             variant="h4"
@@ -191,7 +184,7 @@ export default function SignUp(props) {
                 variant="outlined"
                 error={emailError}
                 helperText={emailErrorMessage}
-                color={passwordError ? 'error' : 'primary'}
+                color={emailError ? 'error' : 'primary'}
               />
             </FormControl>
             <FormControl>
@@ -210,10 +203,6 @@ export default function SignUp(props) {
                 color={passwordError ? 'error' : 'primary'}
               />
             </FormControl>
-            <FormControlLabel
-              control={<Checkbox value="allowExtraEmails" color="primary" />}
-              label="I want to receive updates via email."
-            />
             <Button
               type="submit"
               fullWidth
@@ -223,37 +212,17 @@ export default function SignUp(props) {
               Sign up
             </Button>
           </Box>
-          <Divider>
-            <Typography sx={{ color: 'text.secondary' }}>or</Typography>
-          </Divider>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <Button
-              fullWidth
-              variant="outlined"
-              onClick={() => alert('Sign up with Google')}
-              startIcon={<GoogleIcon />}
+
+          <Typography sx={{ textAlign: 'center' }}>
+            Already have an account?{' '}
+            <Link
+              href="/SignIn"
+              variant="body2"
+              sx={{ alignSelf: 'center' }}
             >
-              Sign up with Google
-            </Button>
-            <Button
-              fullWidth
-              variant="outlined"
-              onClick={() => alert('Sign up with Facebook')}
-              startIcon={<FacebookIcon />}
-            >
-              Sign up with Facebook
-            </Button>
-            <Typography sx={{ textAlign: 'center' }}>
-              Already have an account?{' '}
-              <Link
-                href="/SignIn"
-                variant="body2"
-                sx={{ alignSelf: 'center' }}
-              >
-                Sign in
-              </Link>
-            </Typography>
-          </Box>
+              Sign in
+            </Link>
+          </Typography>
         </Card>
       </SignUpContainer>
     </AppTheme>

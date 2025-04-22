@@ -89,8 +89,11 @@ export default function SignIn(props) {
     try {
       const response = await fetch('https://e5lpxos917.execute-api.us-east-1.amazonaws.com/auth/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        mode: "cors",
+        headers: { 
+          'Content-Type': 'text/plain; charset=utf-8',
+        },
+        body: JSON.stringify({ email, password }),        
       });
   
       const data = await response.json();

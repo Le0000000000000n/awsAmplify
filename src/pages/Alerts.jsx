@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, Typography, Button, Table, TableBody, TableCell, TableHead, TableRow, CircularProgress, Alert } from '@mui/material';
 import AddAlertModal from '../components/AddAlertModal.jsx';
 
@@ -9,6 +10,7 @@ function Alerts({ userId }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [openAddAlertModal, setOpenAddAlertModal] = useState(false);
+  const navigate = useNavigate();
 
   const fetchAlerts = async () => {
     try {
@@ -20,6 +22,7 @@ function Alerts({ userId }) {
       });
       if (!response.ok) throw new Error('Failed to fetch alerts');
       const data = await response.json();
+      console.log('data: ', data)
       setAlerts(data.events[0]?.attributes?.alerts || []);
     } catch (err) {
       setError(err.message);
@@ -44,10 +47,16 @@ function Alerts({ userId }) {
     }
   };
 
+
+
   const resetAlerts = () => {
     setAlerts([]);
     setError(null);
   };
+
+  useEffect(() => {
+    fetchAlerts();
+  }, [])
 
   useEffect(() => {
     resetAlerts();
@@ -56,15 +65,23 @@ function Alerts({ userId }) {
   return (
     <Box sx={{ display: 'flex' }}>
       <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
-          <Typography variant="h5">Alerts</Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2, alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Button 
+              variant="outlined" 
+              onClick={() => navigate(-1)}
+              sx={{ mr: 2 }}
+            >
+              Back
+            </Button>
+            <Typography variant="h5">Alerts</Typography>
+          </Box>
           <Box sx={{ display: 'flex', gap: 1 }}>
             <Button variant="outlined" onClick={resetAlerts}>
               Reset Alerts
             </Button>
             <Button variant="contained" onClick={() => {
               setOpenAddAlertModal(true);
-              fetchAlerts();
             }}>
               Add Alert
             </Button>
@@ -80,6 +97,7 @@ function Alerts({ userId }) {
                 <TableCell>Symbol</TableCell>
                 <TableCell>Threshold High ($)</TableCell>
                 <TableCell>Threshold Low ($)</TableCell>
+                <TableCell>Tiggered On Price</TableCell>
                 <TableCell>Type</TableCell>
                 <TableCell>Triggered</TableCell>
               </TableRow>
@@ -88,21 +106,11 @@ function Alerts({ userId }) {
               {alerts.map((alert, index) => (
                 <TableRow key={index}>
                   <TableCell>{alert.symbol}</TableCell>
-                  <TableCell>${alert.thresholdHigh?.toFixed(2)}</TableCell>
-                  <TableCell>${alert.thresholdLow?.toFixed(2)}</TableCell>
-                  <TableCell>
-                    {alert.trigger ? (
-                      <Typography
-                        sx={{ cursor: 'pointer', color: 'blue' }}
-                        onClick={() => alert(`View details for ${alert.type} alert`)}
-                      >
-                        {alert.type || 'Price'}
-                      </Typography>
-                    ) : (
-                      <Typography sx={{ color: 'gray' }}>-</Typography>
-                    )}
-                  </TableCell>
-                  <TableCell>{alert.trigger ? 'Yes' : 'No'}</TableCell>
+                  <TableCell>{alert.thresholdHigh?.toFixed(2) ? `$${alert.thresholdHigh?.toFixed(2)}` : 'N/A'}</TableCell>
+                  <TableCell>{alert.thresholdLow?.toFixed(2) ? `$${alert.thresholdLow?.toFixed(2)}` : 'N/A'}</TableCell>
+                  <TableCell>${alert.currentPrice?.toFixed(2)}</TableCell>
+                  <TableCell>{alert.type}</TableCell>
+                  <TableCell>{'Yes'}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

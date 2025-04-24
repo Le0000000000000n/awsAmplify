@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Box, AppBar, Toolbar, Typography, Button, Container, Grid, Paper } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import SidebarComponent from '../components/SideBar.jsx';
+import Sidebar from '../components/SideBar.jsx';
 import PortfolioOverview from '../components/PortfolioOverview.jsx';
 import AllocationPieChart from '../components/AllocationPieChart.jsx';
 import StockComparisonBarChart from '../components/StockComparisonBarChart.jsx';
@@ -37,7 +37,6 @@ function Dashboard({ userId }) {
         setLoading(true);
         setError(null);
 
-        console.log(`Fetching portfolio performance for userId: ${userId}, attempt: ${attempt + 1}`);
         const perfResponse = await fetch(`${API_BASE_URL}/portfolio/${userId}/performance`, {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
@@ -55,9 +54,7 @@ function Dashboard({ userId }) {
           throw new Error(`Failed to fetch performance: ${perfResponse.status} - ${errorText}`);
         }
 
-        console.log("before fetchPortfolioData: ", perfResponse);
         const perfData = await perfResponse.json();
-        console.log('fetchPortfolioData perfData:', JSON.stringify(perfData, null, 2));
 
         if (perfData.error) {
           throw new Error('Portfolio error');
@@ -76,7 +73,6 @@ function Dashboard({ userId }) {
           let allocData = null;
           if (allocResponse.ok) {
             allocData = await allocResponse.json();
-            console.log("alloc response", JSON.stringify(allocData, null, 2));
             setAllocation(allocData);
           } else {
             console.warn('Failed to fetch allocation:', allocResponse.status);
@@ -299,31 +295,13 @@ function Dashboard({ userId }) {
           </Button>
         </Toolbar>
       </AppBar>
-      <SidebarComponent drawerWidth={drawerWidth} />
+      <Sidebar drawerWidth={drawerWidth} />
       <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8 }}>
         <Container maxWidth="lg">
           <Box sx={{ mb: 4 }}>
             <Typography variant="h4" sx={{ fontWeight: 500, color: 'grey.900', mb: 2 }}>
               Dashboard
             </Typography>
-            <Box sx={{ display: 'flex', gap: 2 }}>
-              <Button
-                variant="contained"
-                component={Link}
-                to="/alerts"
-                sx={{ borderRadius: 2, textTransform: 'none', px: 3 }}
-              >
-                View Alerts
-              </Button>
-              <Button
-                variant="contained"
-                component={Link}
-                to="/watchlist"
-                sx={{ borderRadius: 2, textTransform: 'none', px: 3 }}
-              >
-                View Watchlist
-              </Button>
-            </Box>
           </Box>
           <Grid container spacing={3}>
             <Grid item xs={12}>

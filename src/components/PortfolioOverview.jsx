@@ -26,7 +26,6 @@ function PortfolioOverview({
   onStockClick,
 }) {
   const [quantities, setQuantities] = useState({});
-  console.log("portfolio: ", portfolio);
   useEffect(() => {
     if (allocation && allocation.sectorAllocations) {
       const newQuantities = {};

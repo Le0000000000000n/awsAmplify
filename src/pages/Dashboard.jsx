@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Box, AppBar, Toolbar, Typography, Button, Container, Grid, Paper } from '@mui/material';
 import { Link } from 'react-router-dom';
-import SidebarComponent from '../components/SideBar.jsx';
+import Sidebar from '../components/SideBar.jsx';
 import PortfolioOverview from '../components/PortfolioOverview.jsx';
 import AllocationPieChart from '../components/AllocationPieChart.jsx';
 import StockComparisonBarChart from '../components/StockComparisonBarChart.jsx';
@@ -293,31 +293,13 @@ function Dashboard({ userId }) {
           </Typography>
         </Toolbar>
       </AppBar>
-      <SidebarComponent drawerWidth={drawerWidth} />
+      <Sidebar drawerWidth={drawerWidth} />
       <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8 }}>
         <Container maxWidth="lg">
           <Box sx={{ mb: 4 }}>
             <Typography variant="h4" sx={{ fontWeight: 500, color: 'grey.900', mb: 2 }}>
               Dashboard
             </Typography>
-            <Box sx={{ display: 'flex', gap: 2 }}>
-              <Button
-                variant="contained"
-                component={Link}
-                to="/alerts"
-                sx={{ borderRadius: 2, textTransform: 'none', px: 3 }}
-              >
-                View Alerts
-              </Button>
-              <Button
-                variant="contained"
-                component={Link}
-                to="/watchlist"
-                sx={{ borderRadius: 2, textTransform: 'none', px: 3 }}
-              >
-                View Watchlist
-              </Button>
-            </Box>
           </Box>
           <Grid container spacing={3}>
             <Grid item xs={12}>

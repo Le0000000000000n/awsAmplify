@@ -1,23 +1,37 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Dashboard from './pages/Dashboard.jsx';
+import Home from './pages/Home.jsx';
+import Alerts from './pages/Alerts.jsx';
+import Watchlist from './pages/Watchlist.jsx';
 
-import SignIn from './sign-in/SignIn.jsx';
-import SignUp from './sign-up/SignUp.jsx';
-// import Dashboard from './dashboard/Dashboard.jsx';
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <Home />,
+    },
+    {
+      path: "/dashboard",
+      element: <Dashboard userId="dd4f509a-e839-4f1a-9a84-6441ada1c7e6" />,
+    },
+    {
+      path: "/alerts",
+      element: <Alerts userId="dd4f509a-e839-4f1a-9a84-6441ada1c7e6" />,
+    },
+    {
+      path: "/watchlist",
+      element: <Watchlist />,
+    },
+  ],
+  {
+    future: {
+      v7_relativeSplatPath: true,
+    },
+  }
+);
+
 function App() {
-  return (
-    <BrowserRouter>
-        <Routes>
-            <Route path="/" element={<SignIn />} />
-            <Route path="/SignIn" element={<SignIn />} />
-            <Route path="/SignUp" element={<SignUp />} />
-            {/* <Route path="/checkout" element={<Checkout />} /> */}
-            {/* <Route path="/dashboard" element={<Dashboard />} /> */}
-            {/* <Route path="/MarketingPage" element={<MarketingPage />} /> */}
-        </Routes>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

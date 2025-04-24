@@ -3,6 +3,8 @@ import Dashboard from './pages/Dashboard.jsx';
 import Home from './pages/Home.jsx';
 import Alerts from './pages/Alerts.jsx';
 import Watchlist from './pages/Watchlist.jsx';
+import SignIn from './sign-in/SignIn.jsx';
+import SignUp from './sign-up/SignUp.jsx';
 
 const router = createBrowserRouter(
   [

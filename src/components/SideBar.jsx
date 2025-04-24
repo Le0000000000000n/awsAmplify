@@ -1,7 +1,7 @@
 import { Drawer, List, ListItem, ListItemText, Toolbar } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-function Sidebar({ drawerWidth }) {
+function SidebarComponent({ drawerWidth }) {
   const menuItems = [
     { text: 'Portfolio', path: '/dashboard' },
     { text: 'Watchlist', path: '/watchlist' },
@@ -30,4 +30,4 @@ function Sidebar({ drawerWidth }) {
   );
 }
 
-export default Sidebar;
+export default SidebarComponent;

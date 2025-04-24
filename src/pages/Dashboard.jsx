@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Box, AppBar, Toolbar, Typography, Button, Container, Grid, Paper } from '@mui/material';
 import { Link } from 'react-router-dom';
-import AllocationPieChart from '../components/AllocationPieChart.jsx';
-import Sidebar from '../components/Sidebar.jsx';
+import SidebarComponent from '../components/Sidebar.jsx';
 import PortfolioOverview from '../components/PortfolioOverview.jsx';
+import AllocationPieChart from '../components/AllocationPieChart.jsx';
 import StockComparisonBarChart from '../components/StockComparisonBarChart.jsx';
 import AddAssetsModal from '../components/AddAssetsModal.jsx';
 import SectorComparisonCarousel from '../components/SectorComparisonCarousel.jsx';
@@ -293,7 +293,7 @@ function Dashboard({ userId }) {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Sidebar drawerWidth={drawerWidth} />
+      <SidebarComponent drawerWidth={drawerWidth} />
       <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8 }}>
         <Container maxWidth="lg">
           <Box sx={{ mb: 4 }}>

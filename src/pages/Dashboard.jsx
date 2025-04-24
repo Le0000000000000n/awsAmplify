@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Box, AppBar, Toolbar, Typography, Button, Container, Grid, Paper } from '@mui/material';
 import { Link } from 'react-router-dom';
-import Sidebar from './components/Sidebar.jsx';
+import Sidebar from 'src/components/Sidebar.jsx';
 import PortfolioOverview from '../components/PortfolioOverview.jsx';
 import AllocationPieChart from '../components/AllocationPieChart.jsx';
 import StockComparisonBarChart from '../components/StockComparisonBarChart.jsx';

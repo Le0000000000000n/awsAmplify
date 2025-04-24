@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, Typography, Button, Table, TableBody, TableCell, TableHead, TableRow, CircularProgress, Alert, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 
 const API_BASE_URL = 'https://e5lpxos917.execute-api.us-east-1.amazonaws.com';
@@ -9,6 +10,7 @@ function Watchlist() {
   const [error, setError] = useState(null);
   const [symbol, setSymbol] = useState('AAPL');
   const stockOptions = ['AAPL', 'TSLA', 'GOOGL', 'MSFT'];
+  const navigate = useNavigate();
 
   const fetchHistory = async () => {
     try {
@@ -60,8 +62,17 @@ function Watchlist() {
   return (
     <Box sx={{ display: 'flex' }}>
       <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
-          <Typography variant="h5">Watchlist - {symbol} History</Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2, alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Button 
+              variant="outlined" 
+              onClick={() => navigate(-1)}
+              sx={{ mr: 2 }}
+            >
+              Back
+            </Button>
+            <Typography variant="h5">Watchlist - {symbol} History</Typography>
+          </Box>
           <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
             <FormControl sx={{ minWidth: 120 }}>
               <InputLabel>Select Stock</InputLabel>

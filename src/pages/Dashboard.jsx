@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Box, AppBar, Toolbar, Typography, Button, Container, Grid, Paper } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SidebarComponent from '../components/SideBar.jsx';
 import PortfolioOverview from '../components/PortfolioOverview.jsx';
 import AllocationPieChart from '../components/AllocationPieChart.jsx';
@@ -23,26 +23,15 @@ function Dashboard({ userId }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [openAddAssetsModal, setOpenAddAssetsModal] = useState(false);
-
-  // const fetchAllocation = async () => {
-  //   try {
-
-  //     const allocResponse = await fetch(`${API_BASE_URL}/portfolio/${userId}/allocation`, {
-  //       method: 'GET',
-  //       headers: { 'Content-Type': 'application/json' },
-  //     });
-  //     if (allocResponse.ok) {
-  //       const allocData = await allocResponse.json();
-  //       setAllocation(allocData);
-  //     } else {
-  //       console.warn('Failed to fetch allocation:', allocResponse.status);
-  //     }
-  //   } catch (error) {
-      
-  //   }
-  // }
+  const navigate = useNavigate();
 
   const fetchPortfolioData = async (retries = 2) => {
+    if (!userId) {
+      setError('No user ID provided. Please sign in again.');
+      setLoading(false);
+      return;
+    }
+
     for (let attempt = 0; attempt <= retries; attempt++) {
       try {
         setLoading(true);
@@ -95,7 +84,6 @@ function Dashboard({ userId }) {
           return allocData;
         };
         
-        // Replace the allocation fetch and portfolioData assignment in fetchPortfolioData with:
         const allocData = await fetchAndSetAllocation(userId);
 
         const portfolioData = {
@@ -114,7 +102,7 @@ function Dashboard({ userId }) {
                 symbol: stock.symbol,
                 quantity,
                 purchasePrice: avgPurchasePrice,
-                purchaseDate: stock.purchaseDate || new Date().toISOString().split('T')[0], // Use current date if purchaseDate is missing
+                purchaseDate: stock.purchaseDate || new Date().toISOString().split('T')[0],
                 currentValue: stock.currentValue,
                 gainLoss: stock.gainLoss,
                 gainLossPercentage: stock.gainLossPercentage,
@@ -229,9 +217,20 @@ function Dashboard({ userId }) {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('userId');
+    navigate('/SignIn');
+  };
+
   useEffect(() => {
-    fetchPortfolioData();
-  }, [userId]);
+    if (userId) {
+      fetchPortfolioData();
+    } else {
+      setError('Please sign in to view your portfolio.');
+      setLoading(false);
+      navigate('/SignIn');
+    }
+  }, [userId, navigate]);
 
   useEffect(() => {
     if (selectedStock) {
@@ -288,9 +287,16 @@ function Dashboard({ userId }) {
         }}
       >
         <Toolbar>
-          <Typography variant="h6" noWrap sx={{ fontWeight: 500, color: 'white' }}>
+          <Typography variant="h6" noWrap sx={{ fontWeight: 500, color: 'white', flexGrow: 1 }}>
             Portfolio Dashboard
           </Typography>
+          <Button
+            color="inherit"
+            onClick={handleLogout}
+            sx={{ textTransform: 'none', borderRadius: 2 }}
+          >
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
       <SidebarComponent drawerWidth={drawerWidth} />

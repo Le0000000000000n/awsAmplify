@@ -18,6 +18,7 @@ function SignUp() {
     try {
       const response = await fetch(`${API_BASE_URL}/auth/signup`, {
         method: 'POST',
+        cache: 'no-store',
         headers: { 'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': 'no-cors'
          },

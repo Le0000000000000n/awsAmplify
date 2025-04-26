@@ -19,7 +19,7 @@ function SignUp() {
       const response = await fetch(`${API_BASE_URL}/auth/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
+          'Access-Control-Allow-Origin': 'no-cors'
          },
         body: JSON.stringify({ email: email, password: password, name: name }),
       });

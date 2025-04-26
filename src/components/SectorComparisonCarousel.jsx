@@ -53,7 +53,7 @@ function SectorComparisonCarousel({ portfolio }) {
         try {
           const response = await fetch(`${API_BASE_URL}/stock/${symbol}/compare`, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'text/plain; charset=utf-8' },
           });
           if (!response.ok) {
             throw new Error(`Failed to fetch sector comparison for ${symbol}`);

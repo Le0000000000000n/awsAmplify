@@ -38,7 +38,7 @@ function Watchlist() {
       setError(null);
       const response = await fetch(`${API_BASE_URL}/stock/${symbol}/history`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'text/plain; charset=utf-8' },
       });
       if (!response.ok) throw new Error(`Failed to update stock history for ${symbol}`);
       await fetchHistory();

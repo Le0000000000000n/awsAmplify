@@ -39,7 +39,7 @@ function Dashboard({ userId }) {
 
         const perfResponse = await fetch(`${API_BASE_URL}/portfolio/${userId}/performance`, {
           method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'text/plain; charset=utf-8' },
         });
 
         if (!perfResponse.ok) {
@@ -68,7 +68,7 @@ function Dashboard({ userId }) {
         const fetchAndSetAllocation = async (userId) => {
           const allocResponse = await fetch(`${API_BASE_URL}/portfolio/${userId}/allocation`, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'text/plain; charset=utf-8' },
           });
           let allocData = null;
           if (allocResponse.ok) {

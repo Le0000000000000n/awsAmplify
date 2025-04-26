@@ -21,7 +21,7 @@ function SignUp() {
         method: 'POST',
         cache: 'no-store',
         headers: { 'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'no-cors'
+          'Access-Control-Allow-Origin': '*'
          },
         body: JSON.stringify({ email: email, password: password, name: name }),
       });

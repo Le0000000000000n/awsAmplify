@@ -26,7 +26,8 @@ function SignUp() {
       });
 
       const data = await response.json();
-
+      console.log(response)
+      console.log(data)
       if (!response.ok || !data.userId) {
         throw new Error(data.error || 'Failed to sign up');
       }

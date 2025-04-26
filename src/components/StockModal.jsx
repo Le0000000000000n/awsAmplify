@@ -16,7 +16,7 @@ function StockModal({ userId, symbol, onClose }) {
   const [stockData, setStockData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const API_BASE_URL = 'https://e5lpxos917.execute-api.us-east-1.amazonaws.com';
+  const API_BASE_URL = 'https://aui6flvy73.execute-api.us-east-1.amazonaws.com';
 
   useEffect(() => {
     const fetchStockPerformance = async () => {

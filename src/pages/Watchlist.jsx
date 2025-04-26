@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Typography, Button, Table, TableBody, TableCell, TableHead, TableRow, CircularProgress, Alert, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 
-const API_BASE_URL = 'https://e5lpxos917.execute-api.us-east-1.amazonaws.com';
+const API_BASE_URL = 'https://aui6flvy73.execute-api.us-east-1.amazonaws.com';
 
 function Watchlist() {
   const [history, setHistory] = useState([]);

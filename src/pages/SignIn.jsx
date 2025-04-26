@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, TextField, Typography, Paper, Container, Alert } from '@mui/material';
 
-const API_BASE_URL = 'https://e5lpxos917.execute-api.us-east-1.amazonaws.com';
+const API_BASE_URL = 'https://aui6flvy73.execute-api.us-east-1.amazonaws.com';
 
 function SignIn() {
   const [email, setEmail] = useState('');

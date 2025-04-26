@@ -10,7 +10,7 @@ import SectorComparisonCarousel from '../components/SectorComparisonCarousel.jsx
 import StockPerformanceModal from '../components/StockPerformanceModal.jsx';
 
 const drawerWidth = 240;
-const API_BASE_URL = 'https://e5lpxos917.execute-api.us-east-1.amazonaws.com';
+const API_BASE_URL = 'https://aui6flvy73.execute-api.us-east-1.amazonaws.com';
 
 function Dashboard({ userId }) {
   const [portfolio, setPortfolio] = useState(null);

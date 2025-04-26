@@ -9,7 +9,7 @@ function PortfolioPerformance({ userId }) {
     const fetchPerformance = async () => {
       try {
         const response = await fetch(
-          `https://e5lpxos917.execute-api.us-east-1.amazonaws.com/portfolio/${userId}/performance`,
+          `https://aui6flvy73.execute-api.us-east-1.amazonaws.com/portfolio/${userId}/performance`,
           {
             method: 'GET',
             headers: {

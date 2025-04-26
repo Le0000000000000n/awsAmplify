@@ -3,7 +3,7 @@ import { Box, Typography, CircularProgress } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Legend } from 'recharts';
 
-const API_BASE_URL = 'https://e5lpxos917.execute-api.us-east-1.amazonaws.com';
+const API_BASE_URL = 'https://aui6flvy73.execute-api.us-east-1.amazonaws.com';
 
 // Simple in-memory cache
 const cache = {};

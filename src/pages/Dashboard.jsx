@@ -141,7 +141,7 @@ function Dashboard({ userId }) {
     try {
       const response = await fetch(`${API_BASE_URL}/portfolio/assets`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'text/plain; charset=utf-8' },
         body: JSON.stringify({ userId, assets }),
       });
 
@@ -167,7 +167,7 @@ function Dashboard({ userId }) {
     try {
       const response = await fetch(`${API_BASE_URL}/portfolio/${userId}/assets/${symbol}/remove`, {
         method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'text/plain; charset=utf-8' },
       });
 
       if (!response.ok) {
@@ -192,7 +192,7 @@ function Dashboard({ userId }) {
     try {
       const response = await fetch(`${API_BASE_URL}/portfolio/${userId}`, {
         method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'text/plain; charset=utf-8' },
       });
 
       if (!response.ok) {
@@ -234,7 +234,7 @@ function Dashboard({ userId }) {
         try {
           const response = await fetch(`${API_BASE_URL}/stock/${selectedStock}/compare`, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'text/plain; charset=utf-8' },
           });
           if (!response.ok) {
             throw new Error('Failed to fetch comparison data');
@@ -250,7 +250,7 @@ function Dashboard({ userId }) {
         try {
           const response = await fetch(`${API_BASE_URL}/stock/${selectedStock}/performance`, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'text/plain; charset=utf-8' },
           });
           if (!response.ok) {
             throw new Error('Failed to fetch performance data');

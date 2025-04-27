@@ -224,7 +224,7 @@ function Dashboard({ userId }) {
     } else {
       setError('Please sign in to view your portfolio.');
       setLoading(false);
-      navigate('/SignIn');
+      navigate('/SignIn/s');
     }
   }, [userId, navigate]);
 

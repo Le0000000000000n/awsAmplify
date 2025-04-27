@@ -8,7 +8,7 @@ import SignUp from './pages/SignUp.jsx';
 
 function Root() {
   const userId = localStorage.getItem('userId');
-  return userId && userId.trim() !== '' ? <Navigate to="/dashboard" replace /> : <Navigate to="/SignIn" replace />;
+  return userId && userId.trim() !== '' ? <Navigate to="/dashboard" replace /> : <Navigate to="/SignIn/" replace />;
 }
 
 const router = createBrowserRouter(

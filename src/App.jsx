@@ -18,23 +18,23 @@ const router = createBrowserRouter(
       element: <Root />,
     },
     {
-      path: "/SignIn",
+      path: "/SignIn/",
       element: <SignIn />,
     },
     {
-      path: "/SignUp",
+      path: "/SignUp/",
       element: <SignUp />,
     },
     {
-      path: "/dashboard",
+      path: "/dashboard/",
       element: <Dashboard userId={localStorage.getItem('userId') || ''} />,
     },
     {
-      path: "/alerts",
+      path: "/alerts/",
       element: <Alerts userId={localStorage.getItem('userId') || ''} />,
     },
     {
-      path: "/watchlist",
+      path: "/watchlist/",
       element: <Watchlist />,
     },
   ],

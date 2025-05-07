@@ -94,7 +94,6 @@ function Alerts({ userId }) {
                 <TableCell>Symbol</TableCell>
                 <TableCell>Threshold High ($)</TableCell>
                 <TableCell>Threshold Low ($)</TableCell>
-                <TableCell>Tiggered On Price</TableCell>
                 <TableCell>Type</TableCell>
                 <TableCell>Triggered</TableCell>
               </TableRow>
@@ -105,7 +104,6 @@ function Alerts({ userId }) {
                   <TableCell>{alert.symbol}</TableCell>
                   <TableCell>{alert.thresholdHigh?.toFixed(2) ? `$${alert.thresholdHigh?.toFixed(2)}` : 'N/A'}</TableCell>
                   <TableCell>{alert.thresholdLow?.toFixed(2) ? `$${alert.thresholdLow?.toFixed(2)}` : 'N/A'}</TableCell>
-                  <TableCell>${alert.currentPrice?.toFixed(2)}</TableCell>
                   <TableCell>{alert.type}</TableCell>
                   <TableCell>{'Yes'}</TableCell>
                 </TableRow>

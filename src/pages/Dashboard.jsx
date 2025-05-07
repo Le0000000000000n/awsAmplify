@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, AppBar, Toolbar, Typography, Button, Container, Grid, Paper } from '@mui/material';
+import { Box, AppBar, Toolbar, Typography, Button, Container, Grid, Paper, Alert } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import Sidebar from '../components/SideBar.jsx';
 import PortfolioOverview from '../components/PortfolioOverview.jsx';
@@ -35,8 +35,7 @@ function Dashboard({ userId }) {
     for (let attempt = 0; attempt <= retries; attempt++) {
       try {
         setLoading(true);
-        setError(null);
-
+        // setError(null)
         const perfResponse = await fetch(`${API_BASE_URL}/portfolio/${userId}/performance`, {
           method: 'GET',
           headers: { 'Content-Type': 'text/plain; charset=utf-8' },
@@ -127,7 +126,7 @@ function Dashboard({ userId }) {
           await new Promise((resolve) => setTimeout(resolve, 1000));
           continue;
         }
-        setError(err.message);
+        // setError(err.message);
         setPortfolio(null);
         setPerformance(null);
         setAllocation(null);
@@ -144,22 +143,28 @@ function Dashboard({ userId }) {
         headers: { 'Content-Type': 'text/plain; charset=utf-8' },
         body: JSON.stringify({ userId, assets }),
       });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || 'Failed to add assets');
-      }
-
+  
       const data = await response.json();
-      if (!data.successful || data.successful.length === 0) {
-        throw new Error('No assets were added');
-      }
-
       await fetchPortfolioData();
+      if (data.error && (!data.successful || data.successful.length === 0)) {
+        setError('Failed to add any assets');
+        return true;
+      }
+  
+      if (data.successful?.length > 0) {
+  
+        if (data.failed?.length > 0) {
+          setError(data.failed.join(', '));
+        }
+  
+        return true;
+      }
+      setError('Unknown response from server');
       return true;
     } catch (err) {
+      await fetchPortfolioData();
       setError('Failed to add assets');
-      return false;
+      return true;
     }
   };
 
@@ -219,7 +224,7 @@ function Dashboard({ userId }) {
   };
 
   useEffect(() => {
-    if (userId) {
+    if (localStorage.getItem('userId')) {
       fetchPortfolioData();
     } else {
       setError('Please sign in to view your portfolio.');
@@ -230,22 +235,6 @@ function Dashboard({ userId }) {
 
   useEffect(() => {
     if (selectedStock) {
-      const fetchComparisonData = async () => {
-        try {
-          const response = await fetch(`${API_BASE_URL}/stock/${selectedStock}/compare`, {
-            method: 'GET',
-            headers: { 'Content-Type': 'text/plain; charset=utf-8' },
-          });
-          if (!response.ok) {
-            throw new Error('Failed to fetch comparison data');
-          }
-          const data = await response.json();
-          setComparisonData(data);
-        } catch (err) {
-          setPerformanceError(`Failed to fetch comparison data: ${err.message}`);
-        }
-      };
-
       const fetchPerformanceData = async () => {
         try {
           const response = await fetch(`${API_BASE_URL}/stock/${selectedStock}/performance`, {
@@ -261,12 +250,9 @@ function Dashboard({ userId }) {
           setPerformanceError(`Failed to fetch performance data: ${err.message}`);
         }
       };
-
-      fetchComparisonData();
       fetchPerformanceData();
     } else {
-      setComparisonData(null);
-      setPerformanceData(null);
+      setPerformanceData(null)
       setPerformanceError(null);
     }
   }, [selectedStock]);
@@ -302,6 +288,11 @@ function Dashboard({ userId }) {
             <Typography variant="h4" sx={{ fontWeight: 500, color: 'grey.900', mb: 2 }}>
               Dashboard
             </Typography>
+            {error && (
+              <Alert onClose={() => setError(null)} severity="error" sx={{ mb: 2 }}>
+                {error}
+              </Alert>
+            )}
           </Box>
           <Grid container spacing={3}>
             <Grid item xs={12}>
@@ -311,7 +302,6 @@ function Dashboard({ userId }) {
                   performance={performance}
                   allocation={allocation}
                   loading={loading}
-                  error={error}
                   onAddAssets={() => setOpenAddAssetsModal(true)}
                   onDeleteStock={deleteStock}
                   onDeletePortfolio={deletePortfolio}
@@ -361,7 +351,7 @@ function Dashboard({ userId }) {
           )}
           <AddAssetsModal
             open={openAddAssetsModal}
-            onClose={() => setOpenAddAssetsModal(false)}
+            onClose={async () => {setOpenAddAssetsModal(false); await fetchPortfolioData();} }
             onAddAssets={addAssets}
           />
         </Container>

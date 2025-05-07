@@ -3,9 +3,14 @@ import { Modal, Box, Typography, Button, TextField, IconButton, Grid } from '@mu
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
+function format(date) {
+  const pad = (n) => n.toString().padStart(2, '0');
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
+
 function AddAssetsModal({ open, onClose, onAddAssets }) {
   const [assets, setAssets] = useState([
-    { symbol: '', price: '', quantity: '', date: '2025-03-01T01:00' },
+    { symbol: '', price: '', quantity: '', date: format(new Date()) },
   ]);
   const [error, setError] = useState(null);
 
@@ -17,7 +22,7 @@ function AddAssetsModal({ open, onClose, onAddAssets }) {
   };
 
   const addAssetRow = () => {
-    setAssets([...assets, { symbol: '', price: '', quantity: '', date: '2025-03-01' }]);
+    setAssets([...assets, { symbol: '', price: '', quantity: '', date: format(new Date()) }]);
   };
 
   const removeAssetRow = (index) => {
@@ -48,7 +53,7 @@ function AddAssetsModal({ open, onClose, onAddAssets }) {
 
       const success = await onAddAssets(formattedAssets);
       if (success) {
-        setAssets([{ symbol: '', price: '', quantity: '', date: '2025-03-01' }]);
+        setAssets([{ symbol: '', price: '', quantity: '', date: format(new Date()) }]);
         onClose();
       }
     } catch (err) {

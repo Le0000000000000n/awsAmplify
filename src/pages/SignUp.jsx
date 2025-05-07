@@ -24,16 +24,15 @@ function SignUp() {
       });
 
       const data = await response.json();
-      console.log(response)
-      console.log(data)
-      if (!response.ok || !data.userId) {
-        throw new Error(data.error || 'Failed to sign up');
+      if ('error' in data) {
+        setError(data.error);
       }
-
-      localStorage.setItem('userId', data.userId);
-      navigate('/dashboard');
+      if (response.ok && data.userId) {
+        localStorage.setItem('userId', data.userId);
+        navigate('/dashboard');
+      }      
     } catch (err) {
-      setError('Failed to sign up. Please try again.');
+      setError(err.error);
     }
   };
 

@@ -5,7 +5,6 @@ import AddAlertModal from '../components/AddAlertModal.jsx';
 
 const API_BASE_URL = 'https://aui6flvy73.execute-api.us-east-1.amazonaws.com';
 
-// Done for the purposes of showing a quto deplou
 function Alerts({ userId }) {
   const [alerts, setAlerts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -46,8 +45,6 @@ function Alerts({ userId }) {
       return false;
     }
   };
-
-
 
   const resetAlerts = () => {
     setAlerts([]);

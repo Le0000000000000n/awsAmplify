@@ -1,4 +1,18 @@
-import { Box, Modal, Typography, Button, Table, TableBody, TableCell, TableContainer, TableRow, Paper, CircularProgress } from '@mui/material';
+import {
+  Box,
+  Modal,
+  Typography,
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Paper,
+  CircularProgress,
+  Tooltip,
+} from '@mui/material';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 function StockPerformanceModal({ symbol, performanceData, onClose }) {
   const formatNumber = (num) => {
@@ -12,6 +26,15 @@ function StockPerformanceModal({ symbol, performanceData, onClose }) {
   };
 
   const formatBoolean = (bool) => (bool ? 'Yes' : 'No');
+
+  const LabelWithInfo = ({ label, info }) => (
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+      {label}
+      <Tooltip title={info} placement="right" arrow>
+        <InfoOutlinedIcon fontSize="small" color="action" />
+      </Tooltip>
+    </Box>
+  );
 
   return (
     <Modal open={!!symbol} onClose={onClose}>
@@ -45,35 +68,79 @@ function StockPerformanceModal({ symbol, performanceData, onClose }) {
             <Table>
               <TableBody>
                 <TableRow>
-                  <TableCell sx={{ fontWeight: 'medium' }}>Current Price</TableCell>
+                  <TableCell sx={{ fontWeight: 'medium' }}>
+                    <LabelWithInfo
+                      label="Current Price"
+                      info="The most recent trading price of the stock."
+                    />
+                  </TableCell>
                   <TableCell align="right">${formatNumber(performanceData.price)}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell sx={{ fontWeight: 'medium' }}>Volume</TableCell>
+                  <TableCell sx={{ fontWeight: 'medium' }}>
+                    <LabelWithInfo
+                      label="Volume"
+                      info="Number of shares traded today."
+                    />
+                  </TableCell>
                   <TableCell align="right">{formatLargeNumber(performanceData.volume)}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell sx={{ fontWeight: 'medium' }}>Market Cap</TableCell>
+                  <TableCell sx={{ fontWeight: 'medium' }}>
+                    <LabelWithInfo
+                      label="Market Cap"
+                      info="Total value of all outstanding shares."
+                    />
+                  </TableCell>
                   <TableCell align="right">${formatLargeNumber(performanceData.marketCap)}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell sx={{ fontWeight: 'medium' }}>RSI (Relative Strength Index)</TableCell>
+                  <TableCell sx={{ fontWeight: 'medium' }}>
+                    <LabelWithInfo
+                      label="RSI"
+                      info="Shows if a stock is overbought or oversold (Relative Strength Index)."
+                    />
+                  </TableCell>
                   <TableCell align="right">{formatNumber(performanceData.momentum_indicators?.rsi)}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell sx={{ fontWeight: 'medium' }}>MACD Trend</TableCell>
-                  <TableCell align="right">{performanceData.momentum_indicators?.MACD?.macdTrend || 'N/A'}</TableCell>
+                  <TableCell sx={{ fontWeight: 'medium' }}>
+                    <LabelWithInfo
+                      label="MACD Trend"
+                      info="Indicates potential trend changes using moving averages."
+                    />
+                  </TableCell>
+                  <TableCell align="right">
+                    {performanceData.momentum_indicators?.MACD?.macdTrend || 'N/A'}
+                  </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell sx={{ fontWeight: 'medium' }}>Price Deviation (200-day Avg)</TableCell>
-                  <TableCell align="right">${formatNumber(performanceData.mean_reversion?.priceDeviation)}</TableCell>
+                  <TableCell sx={{ fontWeight: 'medium' }}>
+                    <LabelWithInfo
+                      label="Price Deviation"
+                      info="How far the current price is from its 200-day average."
+                    />
+                  </TableCell>
+                  <TableCell align="right">
+                    ${formatNumber(performanceData.mean_reversion?.priceDeviation)}
+                  </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell sx={{ fontWeight: 'medium' }}>Volume Spike</TableCell>
+                  <TableCell sx={{ fontWeight: 'medium' }}>
+                    <LabelWithInfo
+                      label="Volume Spike"
+                      info="Sudden large increase in trading volume."
+                    />
+                  </TableCell>
                   <TableCell align="right">{formatBoolean(performanceData.trends?.volume_spike)}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell sx={{ fontWeight: 'medium' }}>Unusual Movement</TableCell>
+                  <TableCell sx={{ fontWeight: 'medium' }}>
+                    <LabelWithInfo
+                      label="Unusual Movement"
+                      info="Uncommon price activity detected in the stock."
+                    />
+                  </TableCell>
                   <TableCell align="right">{formatBoolean(performanceData.trends?.unusual_movement)}</TableCell>
                 </TableRow>
               </TableBody>

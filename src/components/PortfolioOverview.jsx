@@ -17,27 +17,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 function PortfolioOverview({
   portfolio,
   performance,
-  allocation,
   loading,
-  error,
   onAddAssets,
   onDeleteStock,
   onDeletePortfolio,
   onStockClick,
 }) {
-  const [quantities, setQuantities] = useState({});
-  useEffect(() => {
-    if (allocation && allocation.sectorAllocations) {
-      const newQuantities = {};
-      allocation.sectorAllocations.forEach((sector) => {
-        sector.assets.forEach((asset) => {
-          newQuantities[asset.symbol] = (newQuantities[asset.symbol] || 0) + (asset.quantity || 1);
-        });
-      });
-      setQuantities(newQuantities);
-    }
-  }, [allocation]);
-
   if (loading) {
     return (
       <Box sx={{ p: 3, display: 'flex', justifyContent: 'center' }}>
@@ -48,7 +33,7 @@ function PortfolioOverview({
     );
   }
 
-  if (error || !portfolio || !portfolio.assets || portfolio.assets.length === 0) {
+  if (!portfolio || !portfolio.assets || portfolio.assets.length === 0) {
     return (
       <Box sx={{ p: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
         <Typography variant="h6" sx={{ fontWeight: 500, color: 'grey.900', mb: 2 }}>
@@ -97,6 +82,7 @@ function PortfolioOverview({
               <TableCell sx={{ fontWeight: 500, color: 'grey.900' }}>Symbol</TableCell>
               <TableCell sx={{ fontWeight: 500, color: 'grey.900' }}>Quantity</TableCell>
               <TableCell sx={{ fontWeight: 500, color: 'grey.900' }}>Avg Purchase Price</TableCell>
+              <TableCell sx={{ fontWeight: 500, color: 'grey.900' }}>Total Invested</TableCell>
               <TableCell sx={{ fontWeight: 500, color: 'grey.900' }}>Current Value</TableCell>
               <TableCell sx={{ fontWeight: 500, color: 'grey.900' }}>Gain/Loss</TableCell>
               <TableCell sx={{ fontWeight: 500, color: 'grey.900' }}>Purchase Date</TableCell>
@@ -114,6 +100,7 @@ function PortfolioOverview({
       <TableCell sx={{ color: 'grey.700' }}>{asset.symbol}</TableCell>
       <TableCell sx={{ color: 'grey.700' }}>{asset.quantity}</TableCell>
       <TableCell sx={{ color: 'grey.700' }}>${asset.purchasePrice.toFixed(2)}</TableCell>
+      <TableCell sx={{ color: 'grey.700' }}>${(asset.purchasePrice * asset.quantity).toFixed(2)}</TableCell>
       <TableCell sx={{ color: 'grey.700' }}>${asset.currentValue.toFixed(2)}</TableCell>
       <TableCell sx={{ color: asset.gainLoss >= 0 ? 'green' : 'red' }}>
         {asset.gainLoss >= 0 ? '+' : ''}${asset.gainLoss.toFixed(2)} (

@@ -89,7 +89,7 @@ function SectorComparisonCarousel({ portfolio }) {
     }, 100);
 
     return () => clearTimeout(timer);
-  }, [portfolio]);
+  }, []);
 
   const chartData = (stock) => [
     { metric: 'Innovativeness', stock: (stock.company.innovativeness || 0) * 100, sector: (stock.sector.innovativeness || 0) * 100 },

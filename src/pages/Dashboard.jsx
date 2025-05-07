@@ -26,16 +26,14 @@ function Dashboard({ userId }) {
   const navigate = useNavigate();
 
   const fetchPortfolioData = async (retries = 2) => {
-    if (!userId) {
+    if (!localStorage.getItem('userId')) {
       setError('No user ID provided. Please sign in again.');
       setLoading(false);
       return;
     }
-
     for (let attempt = 0; attempt <= retries; attempt++) {
       try {
         setLoading(true);
-        // setError(null)
         const perfResponse = await fetch(`${API_BASE_URL}/portfolio/${userId}/performance`, {
           method: 'GET',
           headers: { 'Content-Type': 'text/plain; charset=utf-8' },

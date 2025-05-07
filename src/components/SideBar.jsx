@@ -6,6 +6,8 @@ function SidebarComponent({ drawerWidth }) {
     { text: 'Portfolio', path: '/dashboard' },
     { text: 'Watchlist', path: '/watchlist' },
     { text: 'Alerts', path: '/alerts' },
+    { text: 'News', path: '/news' },
+
   ];
 
   return (

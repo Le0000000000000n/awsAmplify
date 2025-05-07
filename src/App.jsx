@@ -1,10 +1,10 @@
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import Dashboard from './pages/Dashboard.jsx';
-import Home from './pages/Home.jsx';
 import Alerts from './pages/Alerts.jsx';
 import Watchlist from './pages/Watchlist.jsx';
 import SignIn from './pages/SignIn.jsx';
 import SignUp from './pages/SignUp.jsx';
+import News from './pages/News.jsx';
 
 function Root() {
   const userId = localStorage.getItem('userId');
@@ -36,6 +36,10 @@ const router = createBrowserRouter(
     {
       path: "/watchlist/",
       element: <Watchlist />,
+    },
+    {
+      path: "/news/",
+      element: <News />,
     },
   ],
   {
